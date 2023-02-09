@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 
 // express app
 const app = express();
@@ -11,7 +12,7 @@ app.listen(3000);
 app.set('view engine', 'ejs');
 
 // middleware & static files
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
     console.log('new request made:');
@@ -44,6 +45,10 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
     res.render('about', { title: 'About' });
+});
+
+app.get('/talent-show', (req, res) => {
+    res.render('talent-show', { title: 'Talent Show' });
 });
 
 app.get('/blogs/create', (req, res) => {
