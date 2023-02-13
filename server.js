@@ -1,8 +1,11 @@
+// require express for handling HTTP requests
 const express = require('express');
+// require morgan for simplified logging of requests
 const morgan = require('morgan');
+// require path for handling file paths and directories
 const path = require('path');
 
-// express app
+// create an express application
 const app = express();
 
 // listen for requests
@@ -10,6 +13,8 @@ app.listen(3000);
 
 // register view engine
 app.set('view engine', 'ejs');
+
+app.set('views', path.join(__dirname, 'views'));
 
 // middleware & static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -35,24 +40,31 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    const blogs = [
-        { title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur' },
-        { title: 'Mario finds stars', snippet: 'Lorem ipsum dolor sit amet consectetur' },
-        { title: 'How to defeat bowser', snippet: 'Lorem ipsum dolor sit amet consectetur' },
-    ];
-    res.render('index', { title: 'Home', blogs });
+    res.render('index', { title: 'Home' });
 });
 
-app.get('/about', (req, res) => {
-    res.render('about', { title: 'About' });
+app.get('/resources', (req, res) => {
+    res.render('resources', { title: 'Resources' });
+});
+
+app.get('/volunteering', (req, res) => {
+    res.render('volunteering', { title: 'Volunteering' });
+});
+
+app.get('/fundraising', (req, res) => {
+    res.render('fundraising', { title: 'Fundraising' });
 });
 
 app.get('/talent-show', (req, res) => {
     res.render('talent-show', { title: 'Talent Show' });
 });
 
-app.get('/blogs/create', (req, res) => {
-    res.render('create', { title: 'Create a new blog' });
+app.get('/events', (req, res) => {
+    res.render('events', { title: 'Events' });
+});
+
+app.get('/about-us', (req, res) => {
+    res.render('about-us');
 });
 
 // 404 page
